@@ -11,6 +11,8 @@ public class CharacterIdleState : CharacterBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Character.Agent.isStopped = true;
+        Debug.Log("대기 시작");
     }
 
     public override void Update()
@@ -30,5 +32,6 @@ public class CharacterIdleState : CharacterBaseState
     public override void Exit() 
     {
         base.Exit();
+        Debug.Log("대기종료");
     }
 }

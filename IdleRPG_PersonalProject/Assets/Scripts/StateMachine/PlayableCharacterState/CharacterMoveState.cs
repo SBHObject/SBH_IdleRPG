@@ -11,6 +11,7 @@ public class CharacterMoveState : CharacterBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Character.Agent.isStopped = false;
     }
 
     public override void Update()
