@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
 
         stateMachine = new CharacterStateMachine(this);
+        Agent.speed = Data.BaseStatus.MoveSpeed;
     }
 
     private void Start()
