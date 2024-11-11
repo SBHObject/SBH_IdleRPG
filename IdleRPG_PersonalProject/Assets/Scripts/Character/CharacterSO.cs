@@ -19,6 +19,8 @@ public class CharacterStatus
     [field: SerializeField] public float AttackRange { get; private set; }
     [field: SerializeField] public float BaseAttackDamage { get; private set; }
     [field: SerializeField] public int BaseDefence { get; private set; }
+    [field: SerializeField] public int AggroPerAttack { get; private set; }
+    [field: SerializeField] public int BaseAggroAmount { get; private set; }
 
     [field: Header("Growth")]
     [field: SerializeField] public float GrowthHealthPerLevel {  get; private set; }
