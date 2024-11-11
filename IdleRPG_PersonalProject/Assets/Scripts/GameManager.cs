@@ -10,6 +10,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
     //테스트용 임시 이동지점
     public Transform tempPos;
+    public GameObject tempTarget;
+    private bool battle = false;
 
     private void Update()
     {
@@ -19,6 +21,13 @@ public class GameManager : PersistentSingleton<GameManager>
             Debug.Log("이동명령");
             MoveToNext();
         }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("공격명령");
+            BattleChanger(!battle);
+            battle = !battle;
+        }
     }
 
     public void MoveToNext()
@@ -27,6 +36,16 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             entryCharacters[i].Agent.SetDestination(tempPos.position);
             entryCharacters[i].MoveOrder();
+        }
+    }
+
+    public void BattleChanger(bool battleStart)
+    {
+        for(int i = 0; i < entryCharacters.Count;i++)
+        {
+            entryCharacters[i].BattleOrder(battleStart);
+            //TODO: 테스트용, 삭제할것
+            entryCharacters[i].SetTarget(tempTarget);
         }
     }
 

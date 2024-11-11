@@ -16,7 +16,7 @@ MonoBehaviour:
   <BaseStatus>k__BackingField:
     <BaseHealth>k__BackingField: 100
     <MoveSpeed>k__BackingField: 5
-    <AttackRange>k__BackingField: 10
+    <AttackRange>k__BackingField: 5
     <BaseAttackDamage>k__BackingField: 5
     <BaseDefence>k__BackingField: 5
     <AggroPerAttack>k__BackingField: 1

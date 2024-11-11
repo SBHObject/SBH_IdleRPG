@@ -12,7 +12,6 @@ public class CharacterIdleState : CharacterBaseState
     {
         base.Enter();
         stateMachine.Character.Agent.isStopped = true;
-        Debug.Log("대기 시작");
     }
 
     public override void Update()
@@ -25,13 +24,12 @@ public class CharacterIdleState : CharacterBaseState
 
         if(stateMachine.BattleOrder)
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
+            stateMachine.ChangeState(stateMachine.ChaseState);
         }
     }
 
     public override void Exit() 
     {
         base.Exit();
-        Debug.Log("대기종료");
     }
 }

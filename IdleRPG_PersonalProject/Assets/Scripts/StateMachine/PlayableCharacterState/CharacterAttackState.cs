@@ -11,6 +11,7 @@ public class CharacterAttackState : CharacterBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Character.Agent.isStopped = true;
     }
 
     public override void Update()
@@ -18,16 +19,20 @@ public class CharacterAttackState : CharacterBaseState
         base.Update();
 
         //TODO : 모든적 사망시 IdleState로 변경
+        if (stateMachine.Character.Target == null || stateMachine.BattleOrder == false)
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+            return;
+        }
 
-        if(IsTargetInRange())
+        if (IsTargetInRange())
         {
             stateMachine.Character.Agent.isStopped = true;
             //공격
         }
         else
         {
-            stateMachine.Character.Agent.isStopped = false;
-            //
+            stateMachine.ChangeState(stateMachine.ChaseState);
         }
     }
 

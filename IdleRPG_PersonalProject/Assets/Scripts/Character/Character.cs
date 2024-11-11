@@ -12,6 +12,8 @@ public class Character : MonoBehaviour
 
     private CharacterStateMachine stateMachine;
 
+    public GameObject Target { get; set; }
+
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
@@ -38,8 +40,14 @@ public class Character : MonoBehaviour
     }
 
     //전투 명령, 전투 상태로 변경
-    public void BattleOrder()
+    public void BattleOrder(bool onBattle)
     {
-        stateMachine.BattleOrder = true;
+        stateMachine.BattleOrder = onBattle;
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        //TODO: 캐릭터에 따라 대상 지정방법이 달라짐
+        Target = target;
     }
 }

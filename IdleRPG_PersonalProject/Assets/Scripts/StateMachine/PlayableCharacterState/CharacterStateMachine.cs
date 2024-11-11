@@ -11,6 +11,7 @@ public class CharacterStateMachine : StateMachine
     public CharacterAttackState AttackState { get; }
     public CharacterMoveState MoveState { get; }
     public CharacterDieState DieState { get; }
+    public CharacterChaseState ChaseState { get; }
 
     public bool MoveOrder { get; set; }
     public bool BattleOrder { get; set; }
@@ -23,5 +24,6 @@ public class CharacterStateMachine : StateMachine
         AttackState = new CharacterAttackState(this);
         MoveState = new CharacterMoveState(this);
         DieState = new CharacterDieState(this);
+        ChaseState = new CharacterChaseState(this);
     }
 }
