@@ -13,8 +13,28 @@ public class CharacterMoveState : CharacterBaseState
         base.Enter();
     }
 
+    public override void Update()
+    {
+        base.Update();
+        if(IsArrived())
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+        }
+    }
+
     public override void Exit()
     {
         base.Exit();
+        stateMachine.MoveOrder = false;
+    }
+
+    private bool IsArrived()
+    {
+        if(stateMachine.Character.Agent.remainingDistance <= 0.1f)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

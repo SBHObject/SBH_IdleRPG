@@ -12,6 +12,9 @@ public class CharacterStateMachine : StateMachine
     public CharacterMoveState MoveState { get; }
     public CharacterDieState DieState { get; }
 
+    public bool MoveOrder { get; set; }
+    public bool BattleOrder { get; set; }
+
     public CharacterStateMachine(Character character)
     {
         Character = character;

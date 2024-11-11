@@ -11,10 +11,13 @@ public class CharacterDieState : CharacterBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Character.Agent.isStopped = true;
+        //사망 상태, 모델 비활성화
     }
 
     public override void Exit() 
     {
         base.Exit();
+        //TODO : 부활, 체력 회복등 기능 추가
     }
 }
