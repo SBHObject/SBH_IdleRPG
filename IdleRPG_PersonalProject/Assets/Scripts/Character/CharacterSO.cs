@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Character", menuName = "Characters/PlayableCharacter")]
 public class CharacterSO : ScriptableObject
 {
+    [field: SerializeField] public string characterName;
     [field: SerializeField] public CharacterStatus BaseStatus { get; private set; }
 }
 
