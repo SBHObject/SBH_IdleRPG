@@ -6,40 +6,52 @@ using UnityEngine.AI;
 
 public class StageManager : PersistentSingleton<StageManager>
 {
-    private NavMeshSurface meshSurface;
     public List<MapSO> maps;
 
     [HideInInspector]
-    public List<GameObject> stages;
+    public List<Stage> stages;
 
     public GameObject waitingRoomPrefab;
+
+    public int CurrentStage {  get; private set; }
+    private int currentAliveEnemys;
+    private bool isStageCleared = false;
 
     protected override void Awake()
     {
         base.Awake();
-        meshSurface = GetComponent<NavMeshSurface>();
     }
 
     public void CreateStages(int currntMapIndex)
     {
-        GameObject room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity);
-        Vector3 createPosition = room.GetComponent<WaitingRoom>().stageCreatePoint.position;
+        WaitingRoom room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<WaitingRoom>();
+        Vector3 createPosition = room.stageCreatePoint.position;
 
         for(int i = 0; i < maps[currntMapIndex].stageCount; i++)
         {
             int index = Random.Range(0, maps[currntMapIndex].stagePrefabs.Count);
-            GameObject stage = Instantiate(maps[currntMapIndex].stagePrefabs[index], createPosition, Quaternion.identity);
-            createPosition = stage.GetComponent<Stage>().stageCreatePoint.position;
+            Stage stage = Instantiate(maps[currntMapIndex].stagePrefabs[index], createPosition, Quaternion.identity).GetComponent<Stage>();
+            createPosition = stage.stageCreatePoint.position;
 
             stages.Add(stage);
         }
-
-        //맵 생성후, 네비매시 생성
-        meshSurface.BuildNavMesh();
+        
+        GetComponent<NavMeshSurface>().BuildNavMesh();
+        
+        //네비매시 생성후 캐릭터 생성
+        room.CreateCharacters();
     }
 
     public void ResetMap()
     {
         stages.Clear();
+    }
+
+    public void StageClearChecker()
+    {
+        if(currentAliveEnemys == 0)
+        {
+            //스테이지 클리어, 다음스테이지로 이동
+        }
     }
 }

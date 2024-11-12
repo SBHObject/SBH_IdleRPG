@@ -34,8 +34,9 @@ public class Character : MonoBehaviour
     }
 
     //이동 명령, 이동할 위치 지정 필요
-    public void MoveOrder()
+    public void MoveOrder(Vector3 targetPosition)
     {
+        Agent.SetDestination(targetPosition);
         stateMachine.MoveOrder = true;
     }
 

@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameManager : PersistentSingleton<GameManager>
 {
     public List<Character> entryCharacters = new List<Character>();
+    public GameObject characterPrefab;
 
     private float maxCharacter = 4;
 
     private int currentMap = 0;
+    private int currentStage = 0;
 
     //테스트용 임시 이동지점
     public Transform tempPos;
@@ -41,8 +43,8 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         for(int i = 0; i < entryCharacters.Count; i++)
         {
-            entryCharacters[i].Agent.SetDestination(tempPos.position);
-            entryCharacters[i].MoveOrder();
+            //entryCharacters[i].MoveOrder(tempPos.position);
+            entryCharacters[i].MoveOrder(StageManager.Instance.stages[currentStage].playerPositions[0].position);
         }
     }
 
