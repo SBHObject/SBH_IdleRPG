@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-    public List<Character> entryCharacters = new List<Character>();
-    public GameObject characterPrefab;
-
-    private float maxCharacter = 4;
-
-    private int currentMap = 0;
-    private int currentStage = 0;
+    //싱글톤 인스턴스 길이축소용
+    StageManager stageManager;
+    PlayerManager playerManager;
 
     //테스트용 임시 이동지점
     public Transform tempPos;
     public GameObject tempTarget;
     private bool battle = false;
+
+    private void Start()
+    {
+        stageManager = StageManager.Instance;
+        playerManager = PlayerManager.Instance;
+    }
 
     private void Update()
     {
@@ -41,20 +44,20 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void MoveToNext()
     {
-        for(int i = 0; i < entryCharacters.Count; i++)
+        for(int i = 0; i < playerManager.playerData.entryIndex.Count; i++)
         {
             //entryCharacters[i].MoveOrder(tempPos.position);
-            entryCharacters[i].MoveOrder(StageManager.Instance.stages[currentStage].playerPositions[0].position);
+            
         }
     }
 
     public void BattleChanger(bool battleStart)
     {
-        for(int i = 0; i < entryCharacters.Count;i++)
+        for(int i = 0; i < playerManager.playerData.entryIndex.Count;i++)
         {
-            entryCharacters[i].BattleOrder(battleStart);
-            //TODO: 테스트용, 삭제할것
-            entryCharacters[i].SetTarget(tempTarget);
+            playerManager.characters[i].BattleOrder(battleStart);
+            //TODO: 테스트용, 삭제할것...캐릭터쪽에서 정할것
+            playerManager.characters[i].MoveOrder();
         }
     }
 

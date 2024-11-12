@@ -8,7 +8,8 @@ public class Character : MonoBehaviour
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
 
-    [field: SerializeField] public CharacterSO Data {  get; private set; }
+    [field: SerializeField] public CharacterSO BaseData {  get; private set; }
+    [field: SerializeField] public CharacterStatus Status { get; private set; }
 
     private CharacterStateMachine stateMachine;
 
@@ -20,7 +21,7 @@ public class Character : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
 
         stateMachine = new CharacterStateMachine(this);
-        Agent.speed = Data.BaseStatus.MoveSpeed;
+        Agent.speed = BaseData.BaseStatus.MoveSpeed;
     }
 
     private void Start()
@@ -34,9 +35,8 @@ public class Character : MonoBehaviour
     }
 
     //이동 명령, 이동할 위치 지정 필요
-    public void MoveOrder(Vector3 targetPosition)
+    public void MoveOrder()
     {
-        Agent.SetDestination(targetPosition);
         stateMachine.MoveOrder = true;
     }
 
@@ -51,4 +51,14 @@ public class Character : MonoBehaviour
         //TODO: 캐릭터에 따라 대상 지정방법이 달라짐
         Target = target;
     }
+}
+
+[System.Serializable]
+public class CharacterStatus
+{
+    [field: SerializeField] public int Level { get; set; }
+    [field: SerializeField] public int Attack { get; set; }
+    [field: SerializeField] public int Defence { get; set; }
+    [field: SerializeField] public int MaxHealth { get; set; }
+    [field: SerializeField] public int CurrentHealth {  get; set; }
 }

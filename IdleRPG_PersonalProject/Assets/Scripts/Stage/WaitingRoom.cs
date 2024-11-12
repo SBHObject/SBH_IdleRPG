@@ -9,8 +9,10 @@ public class WaitingRoom : MonoBehaviour
 
     public void CreateCharacters()
     {
-        GameObject character = Instantiate(GameManager.Instance.characterPrefab, spawnPoints[0].position, Quaternion.identity);
-        GameManager.Instance.entryCharacters.Add(character.GetComponent<Character>());
-        Debug.Log(GameManager.Instance.entryCharacters[0].Agent.navMeshOwner);
+        for(int i = 0; i < PlayerManager.Instance.playerData.entryIndex.Count; i++)
+        {
+            GameObject character = Instantiate(PlayerManager.Instance.ReturnEntryCharacterPrefab(i), StageManager.Instance.room.spawnPoints[i].position, Quaternion.identity);
+            PlayerManager.Instance.characters.Add(character.GetComponent<Character>());
+        }
     }
 }

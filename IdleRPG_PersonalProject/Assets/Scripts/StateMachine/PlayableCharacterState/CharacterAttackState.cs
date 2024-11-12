@@ -43,7 +43,7 @@ public class CharacterAttackState : CharacterBaseState
 
     private bool IsTargetInRange()
     {
-        if(stateMachine.Character.Agent.remainingDistance <= stateMachine.Character.Data.BaseStatus.AttackRange)
+        if(stateMachine.Character.Agent.remainingDistance <= stateMachine.Character.BaseData.BaseStatus.AttackRange)
         {
             return true;
         }

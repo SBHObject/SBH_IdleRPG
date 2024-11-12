@@ -12,6 +12,7 @@ public class StageManager : PersistentSingleton<StageManager>
     public List<Stage> stages;
 
     public GameObject waitingRoomPrefab;
+    public WaitingRoom room;
 
     public int CurrentStage {  get; private set; }
     private int currentAliveEnemys;
@@ -24,7 +25,7 @@ public class StageManager : PersistentSingleton<StageManager>
 
     public void CreateStages(int currntMapIndex)
     {
-        WaitingRoom room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<WaitingRoom>();
+        room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<WaitingRoom>();
         Vector3 createPosition = room.stageCreatePoint.position;
 
         for(int i = 0; i < maps[currntMapIndex].stageCount; i++)
@@ -45,6 +46,7 @@ public class StageManager : PersistentSingleton<StageManager>
     public void ResetMap()
     {
         stages.Clear();
+        room = null;
     }
 
     public void StageClearChecker()

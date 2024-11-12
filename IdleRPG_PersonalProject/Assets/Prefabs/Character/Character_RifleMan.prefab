@@ -95,7 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f843823f194e784ca8e987388b1a995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Data>k__BackingField: {fileID: 11400000, guid: 4cbf32d9a1be89940b1c1391085fa4e4, type: 2}
+  <BaseData>k__BackingField: {fileID: 11400000, guid: 4cbf32d9a1be89940b1c1391085fa4e4, type: 2}
+  <Status>k__BackingField:
+    <Level>k__BackingField: 0
+    <Attack>k__BackingField: 0
+    <Defence>k__BackingField: 0
+    <MaxHealth>k__BackingField: 0
+    <CurrentHealth>k__BackingField: 0
 --- !u!1 &6845555164412020963
 GameObject:
   m_ObjectHideFlags: 0
