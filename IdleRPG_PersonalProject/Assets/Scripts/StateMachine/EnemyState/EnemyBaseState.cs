@@ -29,4 +29,19 @@ public class EnemyBaseState : IState
     {
         
     }
+
+    protected bool IsTargetInRange()
+    {
+        if (stateMachine.Enemy.Target == null) return false;
+
+        float distance = Vector3.SqrMagnitude(stateMachine.Enemy.Target.transform.position - stateMachine.Enemy.transform.position);
+
+        if (distance < stateMachine.Enemy.BaseData.AttackRange * stateMachine.Enemy.BaseData.AttackRange)
+        {
+            stateMachine.ChangeState(stateMachine.AttackState);
+            return true;
+        }
+
+        return false;
+    }
 }

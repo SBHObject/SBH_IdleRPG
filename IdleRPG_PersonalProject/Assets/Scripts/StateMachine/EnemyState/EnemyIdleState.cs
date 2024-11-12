@@ -11,7 +11,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-
+        stateMachine.Enemy.Agent.isStopped = true;
     }
 
     public override void Exit() 

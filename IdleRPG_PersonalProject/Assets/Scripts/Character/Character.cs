@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Character : MonoBehaviour
+public interface IDamageable
+{
+    public void BattleOrder(bool OnBattle);
+}
+
+public class Character : MonoBehaviour, IDamageable
 {
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
@@ -14,6 +19,11 @@ public class Character : MonoBehaviour
     private CharacterStateMachine stateMachine;
 
     public GameObject Target { get; set; }
+    private float searchTimer;
+    private float searchRate = 0.5f;
+    private bool inBattle = false;
+
+    public int Aggro { get; private set; }
 
     private void Awake()
     {
@@ -32,6 +42,15 @@ public class Character : MonoBehaviour
     private void Update()
     {
         stateMachine.Update();
+
+        if(inBattle)
+        {
+            searchTimer += Time.deltaTime;
+            if(searchTimer > searchRate)
+            {
+                SetTarget();
+            }
+        }
     }
 
     //이동 명령, 이동할 위치 지정 필요
@@ -44,12 +63,26 @@ public class Character : MonoBehaviour
     public void BattleOrder(bool onBattle)
     {
         stateMachine.BattleOrder = onBattle;
+        inBattle = onBattle;
     }
 
-    public void SetTarget(GameObject target)
+    public void SetTarget()
     {
+        if (StageManager.Instance.enemys.Count == 0) return;
+
         //TODO: 캐릭터에 따라 대상 지정방법이 달라짐
-        Target = target;
+        float minDistance = float.MaxValue;
+
+        for(int i = 0; i < StageManager.Instance.enemys.Count; i++)
+        {
+            float distance = Vector3.SqrMagnitude(StageManager.Instance.enemys[i].transform.position - transform.position);
+
+            if(distance < minDistance)
+            {
+                Target = StageManager.Instance.enemys[i].gameObject;
+                minDistance = distance;
+            }
+        }
     }
 }
 

@@ -11,6 +11,16 @@ public class EnemyAttackState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Enemy.Agent.isStopped = true;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if(IsTargetInRange() == false)
+        {
+            stateMachine.ChangeState(stateMachine.ChaseState);
+        }
     }
 
     public override void Exit() 

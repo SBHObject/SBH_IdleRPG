@@ -11,6 +11,25 @@ public class EnemyChaseState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Enemy.Agent.isStopped = false;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if(IsTargetInRange())
+        {
+            stateMachine.ChangeState(stateMachine.AttackState);
+        }
+        
+        if(stateMachine.Enemy.Target != null)
+        {
+            stateMachine.Enemy.Agent.SetDestination(stateMachine.Enemy.Target.transform.position);
+        }
+        else
+        {
+            stateMachine.ChangeState(stateMachine.IdleState);
+        }
     }
 
     public override void Exit() 
