@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9deee193aac2794e81cf56dd14238d8, type: 3}
   m_Name: Character_RifleMan
   m_EditorClassIdentifier: 
+  characterPrefab: {fileID: 4682514550508392126, guid: e99b2f27c1f069d4bbe5e4e4b8f4ff39, type: 3}
   characterName: "\uC18C\uCD1D\uC218"
   <BaseStatus>k__BackingField:
     <BaseHealth>k__BackingField: 100
     <MoveSpeed>k__BackingField: 5
     <AttackRange>k__BackingField: 5
-    <BaseAttackDamage>k__BackingField: 5
+    <BaseAttackDamage>k__BackingField: 0
     <BaseDefence>k__BackingField: 5
     <AggroPerAttack>k__BackingField: 1
     <BaseAggroAmount>k__BackingField: 0

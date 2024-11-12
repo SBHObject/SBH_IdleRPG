@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85def183d758194459da9898e530182d, type: 3}
-  m_Name: Map1_Stage1
+  m_Script: {fileID: 11500000, guid: 5ba6329096b763a498f2d7afc00d2831, type: 3}
+  m_Name: Enemy_Normal
   m_EditorClassIdentifier: 
-  enemyCount: 6
-  enemyPrefabs:
-  - {fileID: 7702568046727461819, guid: 30bd3256f2602d8478aa512a9e303924, type: 3}
+  enemyName: "\uBE44\uBB34\uC7A5 \uC801"
