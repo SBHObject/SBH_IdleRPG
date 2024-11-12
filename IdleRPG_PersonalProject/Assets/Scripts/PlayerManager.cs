@@ -9,7 +9,7 @@ public class PlayerManager : PersistentSingleton<PlayerManager>
 
     [field: SerializeField] public PlayerData playerData;
     public List<GameObject> characterPrefabs;
-    //[HideInInspector]
+    [HideInInspector]
     public List<Character> characters;
 
     public GameObject ReturnEntryCharacterPrefab(int index)

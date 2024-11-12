@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -26,7 +27,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if(Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("이동명령");
-            MoveToNext();
+            //MoveToNext();
         }
 
         if(Input.GetKeyDown(KeyCode.S))
@@ -42,12 +43,12 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    public void MoveToNext()
+    public void MoveToNext(Vector3 position)
     {
         for(int i = 0; i < playerManager.playerData.entryIndex.Count; i++)
         {
-            //entryCharacters[i].MoveOrder(tempPos.position);
-            
+            playerManager.characters[i].Agent.SetDestination(position);
+            playerManager.characters[i].MoveOrder();
         }
     }
 
@@ -61,14 +62,13 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    //스테이지 시작시, 지정 위치에 캐릭터 생성
-    public void InitCharacters()
-    {
-
-    }
-
     public void InitStage()
     {
-        StageManager.Instance.CreateStages(0);
+        stageManager.CreateStages(0);
+    }
+
+    public void SceneReload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

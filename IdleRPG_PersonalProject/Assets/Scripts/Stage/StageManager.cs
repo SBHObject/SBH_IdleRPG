@@ -23,6 +23,11 @@ public class StageManager : PersistentSingleton<StageManager>
         base.Awake();
     }
 
+    private void Update()
+    {
+        StageClearChecker();
+    }
+
     public void CreateStages(int currntMapIndex)
     {
         room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<WaitingRoom>();
@@ -41,6 +46,7 @@ public class StageManager : PersistentSingleton<StageManager>
         
         //네비매시 생성후 캐릭터 생성
         room.CreateCharacters();
+        CurrentStage = 0;
     }
 
     public void ResetMap()
@@ -51,9 +57,19 @@ public class StageManager : PersistentSingleton<StageManager>
 
     public void StageClearChecker()
     {
-        if(currentAliveEnemys == 0)
+        if(currentAliveEnemys == 0 && isStageCleared == false)
         {
             //스테이지 클리어, 다음스테이지로 이동
+            isStageCleared = true;
+            CurrentStage += 1;
+
+            Invoke(nameof(StartStage), 2f);
         }
+    }
+
+    private void StartStage()
+    {
+        isStageCleared = false;
+        GameManager.Instance.MoveToNext(stages[CurrentStage].playerPositions[0].position);
     }
 }
