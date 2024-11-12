@@ -8,6 +8,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private float maxCharacter = 4;
 
+    private int currentMap = 0;
+
     //테스트용 임시 이동지점
     public Transform tempPos;
     public GameObject tempTarget;
@@ -27,6 +29,11 @@ public class GameManager : PersistentSingleton<GameManager>
             Debug.Log("공격명령");
             BattleChanger(!battle);
             battle = !battle;
+        }
+
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            InitStage();
         }
     }
 
@@ -53,5 +60,10 @@ public class GameManager : PersistentSingleton<GameManager>
     public void InitCharacters()
     {
 
+    }
+
+    public void InitStage()
+    {
+        StageManager.Instance.CreateStages(0);
     }
 }
