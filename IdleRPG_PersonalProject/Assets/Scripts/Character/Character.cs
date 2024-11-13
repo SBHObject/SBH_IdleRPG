@@ -116,13 +116,20 @@ public class Character : MonoBehaviour, IDamageable
     {
         if (Target.TryGetComponent(out IDamageable damageable))
         {
-            attackMethod.TryAttack(Status.Attack, damageable);
+            attackMethod.TryAttack(DamageCalc(), damageable);
         }
     }
 
     public ItemSlot ReturnCharacterEquipSlot()
     {
         return equipSlot;
+    }
+
+    private int DamageCalc()
+    {
+        int damage = equipSlot.item == null ? Status.Attack : Status.Attack + equipSlot.item.ItemAttack;
+
+        return damage;
     }
 }
 
