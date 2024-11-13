@@ -19,6 +19,10 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         stageManager = StageManager.Instance;
         playerManager = PlayerManager.Instance;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        InitStage();
     }
 
     private void Update()
@@ -70,5 +74,11 @@ public class GameManager : PersistentSingleton<GameManager>
     public void SceneReload()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayerManager.Instance.characters.Clear();
+        InitStage();
     }
 }

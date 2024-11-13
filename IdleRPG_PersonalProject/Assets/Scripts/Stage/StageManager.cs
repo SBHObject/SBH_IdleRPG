@@ -36,10 +36,12 @@ public class StageManager : PersistentSingleton<StageManager>
 
     public void CreateStages(int currntMapIndex)
     {
+        ResetMap();
+
         room = Instantiate(waitingRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<WaitingRoom>();
         Vector3 createPosition = room.stageCreatePoint.position;
 
-        for(int i = 0; i < maps[currntMapIndex].stageCount; i++)
+        for(int i = 0; i < maps[currntMapIndex].stageCount + 1; i++)
         {
             int index = Random.Range(0, maps[currntMapIndex].stagePrefabs.Count);
             Stage stage = Instantiate(maps[currntMapIndex].stagePrefabs[index], createPosition, Quaternion.identity).GetComponent<Stage>();
@@ -52,6 +54,7 @@ public class StageManager : PersistentSingleton<StageManager>
         
         //네비매시 생성후 캐릭터 생성
         room.CreateCharacters();
+
         CurrentStage = 0;
         stages[CurrentStage].CreateEnemy();
 
@@ -62,6 +65,7 @@ public class StageManager : PersistentSingleton<StageManager>
     public void ResetMap()
     {
         stages.Clear();
+        enemys.Clear();
         room = null;
     }
 
@@ -81,8 +85,15 @@ public class StageManager : PersistentSingleton<StageManager>
 
     private void StartStage()
     {
-        isStageCleared = false;
-        GameManager.Instance.MoveToNext(stages[CurrentStage].playerPositions[0].position);
+        if (CurrentStage != maps[0].stageCount)
+        {
+            isStageCleared = false;
+            GameManager.Instance.MoveToNext(stages[CurrentStage].playerPositions[0].position);
+        }
+        else
+        {
+            GameManager.Instance.SceneReload();
+        }
 
     }
 
