@@ -9,11 +9,19 @@ public class PlayerManager : PersistentSingleton<PlayerManager>
     private readonly int entryNumber = 4;
 
     [field: SerializeField] public PlayerData playerData;
+    public Inventory inventory;
+
     public List<GameObject> characterPrefabs;
     [HideInInspector]
     public List<Character> characters;
 
     public UnityAction onMoneyChange;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        inventory = new Inventory();
+    }
 
     public GameObject ReturnEntryCharacterPrefab(int index)
     {

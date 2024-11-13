@@ -101,7 +101,6 @@ public class Character : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         Status.CurrentHealth = Status.CurrentHealth - damage < 0 ? 0 : Status.CurrentHealth - damage;
-        Debug.Log(Status.CurrentHealth);
         if(Status.CurrentHealth == 0)
         {
             stateMachine.ChangeState(stateMachine.DieState);
