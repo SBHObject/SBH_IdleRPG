@@ -86,6 +86,7 @@ public class UIInventory : MonoBehaviour
 
     public void ClickUpgradeButton()
     {
+        if (PlayerManager.Instance.UseMoney(curCharEquipSlot.item.UpgradeCost) == false) return;
         curCharEquipSlot.item.itemUpgradeCount++;
         UpdateEquipItemInfo();
     }
