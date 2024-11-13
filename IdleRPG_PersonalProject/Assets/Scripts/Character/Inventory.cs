@@ -20,7 +20,7 @@ public class Inventory
         }
     }
 
-    public void AddItem(ItemSO item)
+    public void AddItem(ItemWeapon item)
     {
         for (int i = 0; i < itemSlots.Count; i++)
         {
@@ -31,7 +31,7 @@ public class Inventory
             }
         }
 
-        SellItem(item);
+        SellItem(item.ItemData);
     }
 
     public void SellItem(ItemSO item)
@@ -44,15 +44,18 @@ public class Inventory
         itemSlots[slotIndex].item = null;
     }
 
-    public void SlotSelect(int index)
+    public void SlotSelect(int index, bool activeButton)
     {
         CurSelecterdSlot = index;
-        onSelectSlot?.Invoke();
+        if (activeButton == false)
+        {
+            onSelectSlot?.Invoke();
+        }
     }
 
-    public ItemSO EquipItem()
+    public ItemWeapon EquipItem()
     {
-        ItemSO item = itemSlots[CurSelecterdSlot].item;
+        ItemWeapon item = itemSlots[CurSelecterdSlot].item;
         itemSlots[CurSelecterdSlot].item = null;
         CurSelecterdSlot = -1;
 

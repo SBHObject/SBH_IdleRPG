@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ItemSlot
 {
-    public ItemSO item;
+    public ItemWeapon item;
     public int slotIndex;
 }

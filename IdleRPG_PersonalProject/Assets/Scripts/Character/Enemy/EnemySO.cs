@@ -9,6 +9,8 @@ public class EnemySO : ScriptableObject
     [SerializeField] public AttackRange RangeType;
     [SerializeField] public float AttackRange;
     [SerializeField] public int rewordMoney;
+    public ItemSO dropItem;
+    public float dropRate;
 }
 
 public enum AttackRange

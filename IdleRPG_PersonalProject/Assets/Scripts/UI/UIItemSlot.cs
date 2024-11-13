@@ -7,22 +7,25 @@ public class UIItemSlot : MonoBehaviour
 {
     public ItemSlot slot;
     public Image itemIcon;
+    private bool isEquipSlot;
 
     private void Update()
     {
         UpdateSlotUI();
     }
 
-    public void InitSlotUI(ItemSlot slot)
+    public void InitSlotUI(ItemSlot slot, bool isEquipSlot)
     {
         this.slot = slot;
+        this.isEquipSlot = isEquipSlot;
     }
 
     private void UpdateSlotUI()
     {
         if(slot.item != null)
         {
-            itemIcon.sprite = slot.item.itemIcon;
+            itemIcon.enabled = true;
+            itemIcon.sprite = slot.item.ItemData.itemIcon;
         }
         else
         {
@@ -32,6 +35,6 @@ public class UIItemSlot : MonoBehaviour
 
     public void ClickItemSlot()
     {
-        PlayerManager.Instance.inventory.SlotSelect(slot.slotIndex);
+        PlayerManager.Instance.inventory.SlotSelect(slot.slotIndex, isEquipSlot);
     }
 }

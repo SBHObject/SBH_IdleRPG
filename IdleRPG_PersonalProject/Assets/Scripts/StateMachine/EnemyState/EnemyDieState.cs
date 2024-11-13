@@ -13,6 +13,11 @@ public class EnemyDieState : EnemyBaseState
         base.Enter();
         stateMachine.Enemy.Die();
         PlayerManager.Instance.AddMoney(stateMachine.Enemy.BaseData.rewordMoney);
+        if (stateMachine.Enemy.BaseData.dropItem != null && Random.Range(0f, 100f) < stateMachine.Enemy.BaseData.dropRate)
+        {
+            Debug.Log("¾ÆÀÌÅÛ");
+            PlayerManager.Instance.inventory.AddItem(new ItemWeapon(stateMachine.Enemy.BaseData.dropItem));
+        }
     }
 
     public override void Exit() 

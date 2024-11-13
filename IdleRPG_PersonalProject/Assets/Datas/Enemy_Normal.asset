@@ -16,3 +16,5 @@ MonoBehaviour:
   RangeType: 0
   AttackRange: 1.5
   rewordMoney: 100
+  dropItem: {fileID: 11400000, guid: f43352d06dda4a64fb64f8bb6b926323, type: 2}
+  dropRate: 50
