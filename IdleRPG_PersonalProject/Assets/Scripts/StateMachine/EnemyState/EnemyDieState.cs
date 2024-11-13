@@ -11,6 +11,7 @@ public class EnemyDieState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+        stateMachine.Enemy.Die();
     }
 
     public override void Exit() 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     public NavMeshAgent Agent { get; private set; }
     public CharacterController Controller { get; private set; }
@@ -17,11 +17,16 @@ public class Enemy : MonoBehaviour
 
     public GameObject Target { get; private set; }
 
+    private int tempHealth = 100;
+    private int tempAttack = 10;
+    private IAttackMethod attackMethod;
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         stateMachine = new EnemyStateMachine(this);
+        attackMethod = GetComponent<IAttackMethod>();
     }
 
     private void Start()
@@ -43,12 +48,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void BattleOrder()
-    {
-        stateMachine.ChangeState(stateMachine.ChaseState);
-        SearchTarget();
-    }
-
     private void SearchTarget()
     {
         int maxAggro = int.MinValue;
@@ -60,5 +59,36 @@ public class Enemy : MonoBehaviour
                 maxAggro = PlayerManager.Instance.characters[i].Aggro;
             }
         }
+    }
+
+    public void BattleOrder(bool OnBattle)
+    {
+        stateMachine.ChangeState(stateMachine.ChaseState);
+        SearchTarget();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        tempHealth -= damage;
+
+        if(tempHealth <= 0)
+        {
+            stateMachine.ChangeState(stateMachine.DieState);
+        }
+    }
+
+    public void TryAttack()
+    {
+        if(Target.TryGetComponent(out IDamageable damageable))
+        {
+            attackMethod.TryAttack(tempAttack, damageable);
+        }
+    }
+
+    public void Die()
+    {
+        StageManager.Instance.EnemyDie();
+        StageManager.Instance.enemys.Remove(this);
+        Destroy(gameObject);
     }
 }

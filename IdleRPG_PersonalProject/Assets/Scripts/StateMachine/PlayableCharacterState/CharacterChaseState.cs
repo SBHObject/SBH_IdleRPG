@@ -15,7 +15,10 @@ public class CharacterChaseState : CharacterBaseState
     {
         base.Enter();
         stateMachine.Character.Agent.isStopped = false;
-        stateMachine.Character.Agent.SetDestination(stateMachine.Character.Target.transform.position);
+        if (stateMachine.Character.Target != null)
+        {
+            stateMachine.Character.Agent.SetDestination(stateMachine.Character.Target.transform.position);
+        }
     }
 
     public override void Update()

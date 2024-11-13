@@ -85,4 +85,9 @@ public class StageManager : PersistentSingleton<StageManager>
         GameManager.Instance.MoveToNext(stages[CurrentStage].playerPositions[0].position);
 
     }
+
+    public void EnemyDie()
+    {
+        currentAliveEnemys--;
+    }
 }

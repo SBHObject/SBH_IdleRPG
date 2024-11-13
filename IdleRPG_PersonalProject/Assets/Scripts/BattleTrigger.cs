@@ -17,7 +17,7 @@ public class BattleTrigger : MonoBehaviour
                 isStarted = true;
                 for (int i = 0; i < StageManager.Instance.enemys.Count; i++)
                 {
-                    StageManager.Instance.enemys[i].BattleOrder();
+                    StageManager.Instance.enemys[i].BattleOrder(true);
                 }
             }
         }

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2979765239577045081}
   - component: {fileID: 3576408308470583219}
   - component: {fileID: 1549674869757376220}
-  m_Layer: 0
+  - component: {fileID: 2886979270926859190}
+  m_Layer: 6
   m_Name: Character_RifleMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,10 +99,22 @@ MonoBehaviour:
   <BaseData>k__BackingField: {fileID: 11400000, guid: 4cbf32d9a1be89940b1c1391085fa4e4, type: 2}
   <Status>k__BackingField:
     <Level>k__BackingField: 0
-    <Attack>k__BackingField: 0
+    <Attack>k__BackingField: 100
     <Defence>k__BackingField: 0
     <MaxHealth>k__BackingField: 0
     <CurrentHealth>k__BackingField: 0
+--- !u!114 &2886979270926859190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682514550508392126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636a134ab46ea1848bacff6677b23a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6845555164412020963
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +126,7 @@ GameObject:
   - component: {fileID: 31041343663033143}
   - component: {fileID: 6583944521466911920}
   - component: {fileID: 4920635979655732375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

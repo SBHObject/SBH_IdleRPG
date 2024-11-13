@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterAttackState : CharacterBaseState
 {
+    private float attackRate = 1f;
+    private float attackTimer;
+
     public CharacterAttackState(CharacterStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -29,6 +32,13 @@ public class CharacterAttackState : CharacterBaseState
         {
             stateMachine.Character.Agent.isStopped = true;
             //АјАн
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer >= attackRate)
+            {
+                attackTimer = 0f;
+                stateMachine.Character.TryAttack();
+            }
         }
         else
         {

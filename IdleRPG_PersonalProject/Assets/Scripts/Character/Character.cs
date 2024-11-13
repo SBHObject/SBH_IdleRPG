@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public interface IDamageable
 {
     public void BattleOrder(bool OnBattle);
+    public void TakeDamage(int damage);
 }
 
 public class Character : MonoBehaviour, IDamageable
@@ -24,11 +25,13 @@ public class Character : MonoBehaviour, IDamageable
     private bool inBattle = false;
 
     public int Aggro { get; private set; }
+    private IAttackMethod attackMethod;
 
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
         Agent = GetComponent<NavMeshAgent>();
+        attackMethod = GetComponent<IAttackMethod>();
 
         stateMachine = new CharacterStateMachine(this);
         Agent.speed = BaseData.BaseStatus.MoveSpeed;
@@ -45,6 +48,11 @@ public class Character : MonoBehaviour, IDamageable
 
         if(inBattle)
         {
+            if(Target == null)
+            {
+                SetTarget();
+            }
+
             searchTimer += Time.deltaTime;
             if(searchTimer > searchRate)
             {
@@ -82,6 +90,19 @@ public class Character : MonoBehaviour, IDamageable
                 Target = StageManager.Instance.enemys[i].gameObject;
                 minDistance = distance;
             }
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        
+    }
+
+    public void TryAttack()
+    {
+        if(Target.TryGetComponent(out IDamageable damageable))
+        {
+            attackMethod.TryAttack(Status.Attack, damageable);
         }
     }
 }
