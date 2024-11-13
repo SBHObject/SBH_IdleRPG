@@ -15,3 +15,4 @@ MonoBehaviour:
   enemyName: "\uBE44\uBB34\uC7A5 \uC801"
   RangeType: 0
   AttackRange: 3
+  rewordMoney: 100

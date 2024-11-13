@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public interface IDamageable
 {
@@ -27,6 +28,8 @@ public class Character : MonoBehaviour, IDamageable
     public int Aggro { get; private set; }
     private IAttackMethod attackMethod;
 
+    public UnityAction onHpChange;
+
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
@@ -35,6 +38,8 @@ public class Character : MonoBehaviour, IDamageable
 
         stateMachine = new CharacterStateMachine(this);
         Agent.speed = BaseData.BaseStatus.MoveSpeed;
+
+        Status = new CharacterStatus(BaseData.BaseStatus.BaseAttackDamage, BaseData.BaseStatus.BaseDefence, BaseData.BaseStatus.BaseHealth); ;
     }
 
     private void Start()
@@ -95,7 +100,14 @@ public class Character : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        Status.CurrentHealth = Status.CurrentHealth - damage < 0 ? 0 : Status.CurrentHealth - damage;
+        Debug.Log(Status.CurrentHealth);
+        if(Status.CurrentHealth == 0)
+        {
+            stateMachine.ChangeState(stateMachine.DieState);
+        }
         
+        onHpChange?.Invoke();
     }
 
     public void TryAttack()
@@ -115,4 +127,13 @@ public class CharacterStatus
     [field: SerializeField] public int Defence { get; set; }
     [field: SerializeField] public int MaxHealth { get; set; }
     [field: SerializeField] public int CurrentHealth {  get; set; }
+
+    public CharacterStatus(int attack, int defence, int maxHealth)
+    {
+        Level = 1;
+        Attack = attack;
+        Defence = defence;
+        MaxHealth = maxHealth;
+        CurrentHealth = maxHealth;
+    }
 }

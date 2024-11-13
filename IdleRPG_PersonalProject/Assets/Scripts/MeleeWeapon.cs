@@ -18,13 +18,13 @@ public class MeleeWeapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (targets.Contains(other)) return;
-        if (other.gameObject.layer != targetLayer) return;
-        
+        //if (other.gameObject.layer != targetLayer) return;
+
         targets.Add(other);
 
         if(other.TryGetComponent(out IDamageable damageable))
         {
-            
+            damageable.TakeDamage(damage);
         }
     }
 

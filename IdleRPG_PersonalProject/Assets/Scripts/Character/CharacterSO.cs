@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     public GameObject characterPrefab;
+    public Sprite characterIcon;
 
     [field: SerializeField] public string characterName;
     [field: SerializeField] public CharacterBaseStatus BaseStatus { get; private set; }

@@ -12,6 +12,7 @@ public class EnemyDieState : EnemyBaseState
     {
         base.Enter();
         stateMachine.Enemy.Die();
+        PlayerManager.Instance.AddMoney(stateMachine.Enemy.BaseData.rewordMoney);
     }
 
     public override void Exit() 

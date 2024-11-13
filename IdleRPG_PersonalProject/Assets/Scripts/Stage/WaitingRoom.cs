@@ -13,6 +13,7 @@ public class WaitingRoom : MonoBehaviour
         {
             GameObject character = Instantiate(PlayerManager.Instance.ReturnEntryCharacterPrefab(i), StageManager.Instance.room.spawnPoints[i].position, Quaternion.identity);
             PlayerManager.Instance.characters.Add(character.GetComponent<Character>());
+            UIManager.Instance.InitInfoUI(character.GetComponent<Character>());
         }
     }
 }

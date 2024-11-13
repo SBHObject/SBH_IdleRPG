@@ -15,7 +15,7 @@ public class MeleeAttack : MonoBehaviour, IAttackMethod
     IEnumerator Attack()
     {
         weapon.gameObject.SetActive(true);
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         weapon.gameObject.SetActive(false);
     }
 
