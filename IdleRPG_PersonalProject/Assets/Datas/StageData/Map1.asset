@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208ba312b20ae754c848067d5cd0ceef, type: 3}
   m_Name: Map1
   m_EditorClassIdentifier: 
-  stageCount: 10
+  stageCount: 2
   stagePrefabs:
   - {fileID: 1310610390087783110, guid: 957851b2e6ad776488f4b023e0704df0, type: 3}
