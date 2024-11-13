@@ -29,4 +29,9 @@ public class UIItemSlot : MonoBehaviour
             itemIcon.enabled = false;
         }
     }
+
+    public void ClickItemSlot()
+    {
+        PlayerManager.Instance.inventory.SlotSelect(slot.slotIndex);
+    }
 }

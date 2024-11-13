@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class Inventory
 {
     public List<ItemSlot> itemSlots = new List<ItemSlot>(100);
+    public int CurSelecterdSlot { get; private set; } = -1;
+
+    public UnityAction onSelectSlot;
 
     public Inventory()
     {
@@ -38,5 +42,20 @@ public class Inventory
     public void RemoveItem(int slotIndex)
     {
         itemSlots[slotIndex].item = null;
+    }
+
+    public void SlotSelect(int index)
+    {
+        CurSelecterdSlot = index;
+        onSelectSlot?.Invoke();
+    }
+
+    public ItemSO EquipItem()
+    {
+        ItemSO item = itemSlots[CurSelecterdSlot].item;
+        itemSlots[CurSelecterdSlot].item = null;
+        CurSelecterdSlot = -1;
+
+        return item;
     }
 }

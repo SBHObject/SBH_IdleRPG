@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IDamageable
     public CharacterController Controller { get; private set; }
     public NavMeshAgent Agent { get; private set; }
 
-    [field: SerializeField] public CharacterSO BaseData {  get; private set; }
+    [field: SerializeField] public CharacterSO BaseData { get; private set; }
     [field: SerializeField] public CharacterStatus Status { get; private set; }
 
     private CharacterStateMachine stateMachine;
@@ -30,11 +30,14 @@ public class Character : MonoBehaviour, IDamageable
 
     public UnityAction onHpChange;
 
+    private ItemSlot equipSlot;
+
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
         Agent = GetComponent<NavMeshAgent>();
         attackMethod = GetComponent<IAttackMethod>();
+        equipSlot = new ItemSlot();
 
         stateMachine = new CharacterStateMachine(this);
         Agent.speed = BaseData.BaseStatus.MoveSpeed;
@@ -51,15 +54,15 @@ public class Character : MonoBehaviour, IDamageable
     {
         stateMachine.Update();
 
-        if(inBattle)
+        if (inBattle)
         {
-            if(Target == null)
+            if (Target == null)
             {
                 SetTarget();
             }
 
             searchTimer += Time.deltaTime;
-            if(searchTimer > searchRate)
+            if (searchTimer > searchRate)
             {
                 SetTarget();
             }
@@ -86,11 +89,11 @@ public class Character : MonoBehaviour, IDamageable
         //TODO: 캐릭터에 따라 대상 지정방법이 달라짐
         float minDistance = float.MaxValue;
 
-        for(int i = 0; i < StageManager.Instance.enemys.Count; i++)
+        for (int i = 0; i < StageManager.Instance.enemys.Count; i++)
         {
             float distance = Vector3.SqrMagnitude(StageManager.Instance.enemys[i].transform.position - transform.position);
 
-            if(distance < minDistance)
+            if (distance < minDistance)
             {
                 Target = StageManager.Instance.enemys[i].gameObject;
                 minDistance = distance;
@@ -101,20 +104,25 @@ public class Character : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         Status.CurrentHealth = Status.CurrentHealth - damage < 0 ? 0 : Status.CurrentHealth - damage;
-        if(Status.CurrentHealth == 0)
+        if (Status.CurrentHealth == 0)
         {
             stateMachine.ChangeState(stateMachine.DieState);
         }
-        
+
         onHpChange?.Invoke();
     }
 
     public void TryAttack()
     {
-        if(Target.TryGetComponent(out IDamageable damageable))
+        if (Target.TryGetComponent(out IDamageable damageable))
         {
             attackMethod.TryAttack(Status.Attack, damageable);
         }
+    }
+
+    public ItemSlot ReturnCharacterEquipSlot()
+    {
+        return equipSlot;
     }
 }
 
