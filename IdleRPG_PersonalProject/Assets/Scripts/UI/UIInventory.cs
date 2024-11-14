@@ -24,6 +24,8 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI upgradeCostText;
     public TextMeshProUGUI itemAttackText;
 
+    public AudioClip buttonSoundClip;
+
     private void Start()
     {
         for(int i = 0; i < PlayerManager.Instance.inventory.itemSlots.Count; i++)
@@ -62,6 +64,7 @@ public class UIInventory : MonoBehaviour
         curCharEquipSlot.item = PlayerManager.Instance.inventory.EquipItem();
         equipButton.SetActive(false);
         UpdateEquipItemInfo();
+        SoundManager.Instance.PlaySoundOneShot(buttonSoundClip);
     }
 
     public void OnActiveInvenUI()
@@ -82,6 +85,8 @@ public class UIInventory : MonoBehaviour
             invenUI.SetActive(true);
             OnActiveInvenUI();
         }
+
+        SoundManager.Instance.PlaySoundOneShot(buttonSoundClip);
     }
 
     public void ClickUpgradeButton()
@@ -89,6 +94,7 @@ public class UIInventory : MonoBehaviour
         if (PlayerManager.Instance.UseMoney(curCharEquipSlot.item.UpgradeCost) == false) return;
         curCharEquipSlot.item.itemUpgradeCount++;
         UpdateEquipItemInfo();
+        SoundManager.Instance.PlaySoundOneShot(buttonSoundClip);
     }
 
     private void OnDestroy()
