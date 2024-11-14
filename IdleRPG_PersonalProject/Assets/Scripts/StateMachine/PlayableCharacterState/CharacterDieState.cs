@@ -11,8 +11,11 @@ public class CharacterDieState : CharacterBaseState
     public override void Enter()
     {
         base.Enter();
-        stateMachine.Character.Agent.isStopped = true;
+        //stateMachine.Character.Agent.isStopped = true;
         //사망 상태, 모델 비활성화
+        //임시로 즉시 부활...
+        stateMachine.Character.Status.CurrentHealth = stateMachine.Character.Status.MaxHealth;
+        stateMachine.ChangeState(stateMachine.IdleState);
     }
 
     public override void Exit() 
